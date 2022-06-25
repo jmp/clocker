@@ -13,7 +13,7 @@ def test_get_last_event_returns_the_same_value_by_default():
     mock_result = mock_repository.get_last_event()
     sqlite_result = sqlite_repository.get_last_event()
 
-    assert mock_result == sqlite_result
+    assert mock_result is sqlite_result is None
 
 
 def test_insert_event_inserts_a_single_in_event():
@@ -27,7 +27,7 @@ def test_insert_event_inserts_a_single_in_event():
     mock_result = mock_repository.get_last_event()
     sqlite_result = sqlite_repository.get_last_event()
 
-    assert mock_result == sqlite_result
+    assert mock_result == sqlite_result == event
 
 
 def test_insert_event_inserts_a_single_out_event():
@@ -41,7 +41,7 @@ def test_insert_event_inserts_a_single_out_event():
     mock_result = mock_repository.get_last_event()
     sqlite_result = sqlite_repository.get_last_event()
 
-    assert mock_result == sqlite_result
+    assert mock_result == sqlite_result == event
 
 
 def test_insert_multiple_events():
@@ -58,4 +58,4 @@ def test_insert_multiple_events():
     mock_result = mock_repository.get_last_event()
     sqlite_result = sqlite_repository.get_last_event()
 
-    assert mock_result == sqlite_result
+    assert mock_result == sqlite_result == out_event

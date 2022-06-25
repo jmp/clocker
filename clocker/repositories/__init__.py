@@ -1,1 +1,2 @@
 from .event_repository import EventRepository
+from .sqlite_event_repository import SQLiteEventRepository

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from clocker.event import Event, EventType
-from clocker.repositories.sqlite_event_repository import SQLiteEventRepository
+from clocker.repositories import SQLiteEventRepository
 
 from .mocks import MockEventRepository
 

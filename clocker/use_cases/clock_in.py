@@ -13,5 +13,5 @@ class ClockInUseCase:
         last_event = self._repository.get_last_event()
         if last_event is not None and last_event.type == EventType.IN:
             raise AlreadyClockedInError()
-        event = Event(timestamp, EventType.IN)
-        self._repository.insert_event(event)
+
+        self._repository.insert_event(Event(timestamp, EventType.IN))

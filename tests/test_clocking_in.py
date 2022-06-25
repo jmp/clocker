@@ -1,24 +1,12 @@
-from typing import Optional
-
 from pytest import raises
 
 from datetime import datetime
 
 from clocker.errors import AlreadyClockedInError
 from clocker.event import EventType, Event
-from clocker.event_repository import EventRepository
 from clocker.use_cases import ClockInUseCase
 
-
-class FakeEventRepository(EventRepository):
-    def __init__(self):
-        self.inserted_event = None
-
-    def insert_event(self, event: Event):
-        self.inserted_event = event
-
-    def get_last_event(self) -> Optional[Event]:
-        return self.inserted_event
+from .fake_event_repository import FakeEventRepository
 
 
 def test_clocking_in_records_start_time():

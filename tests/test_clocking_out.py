@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from clocker.event import EventType, Event
-from clocker.use_cases.clock_out import ClockOutUseCase
+from clocker.use_cases import ClockOutUseCase
 
 from .fake_event_repository import FakeEventRepository
 

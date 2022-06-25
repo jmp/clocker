@@ -2,7 +2,7 @@ from datetime import datetime
 
 from ..errors import AlreadyClockedInError
 from ..event import Event, EventType
-from clocker.repositories.event_repository import EventRepository
+from ..repositories.event_repository import EventRepository
 
 
 class ClockInUseCase:

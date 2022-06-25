@@ -15,10 +15,7 @@ def test_clocking_in_records_an_in_event():
 
     use_case.clock_in(datetime(2022, 5, 22, 8, 30))
 
-    assert repository.inserted_event == Event(
-        datetime(2022, 5, 22, 8, 30),
-        EventType.IN
-    )
+    assert repository.inserted_event == Event(datetime(2022, 5, 22, 8, 30), EventType.IN)
 
 
 def test_clocking_in_raises_an_exception_if_already_clocked_in():

@@ -16,10 +16,7 @@ def test_clocking_out_records_an_out_event():
 
     use_case.clock_out(datetime(2022, 5, 22, 19, 50))
 
-    assert repository.inserted_event == Event(
-        timestamp=datetime(2022, 5, 22, 19, 50),
-        type=EventType.OUT
-    )
+    assert repository.inserted_event == Event(datetime(2022, 5, 22, 19, 50), EventType.OUT)
 
 
 def test_clocking_out_raises_an_exception_if_there_are_no_events():

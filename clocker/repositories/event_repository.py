@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from clocker.event import Event
+from ..event import Event
 
 
 class EventRepository(ABC):

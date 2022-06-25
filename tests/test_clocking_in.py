@@ -2,7 +2,7 @@ from pytest import raises
 
 from datetime import datetime
 
-from clocker.errors import AlreadyClockedInError
+from clocker.errors import NotClockedOutError
 from clocker.event import EventType, Event
 from clocker.use_cases import ClockInUseCase
 
@@ -23,5 +23,5 @@ def test_clocking_in_raises_an_exception_if_already_clocked_in():
     repository = MockEventRepository(last_event)
     use_case = ClockInUseCase(repository)
 
-    with raises(AlreadyClockedInError):
+    with raises(NotClockedOutError):
         use_case.clock_in(datetime(2022, 5, 22, 8, 31))

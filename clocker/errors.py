@@ -1,6 +1,6 @@
-class AlreadyClockedInError(RuntimeError):
+class NotClockedOutError(RuntimeError):
     pass
 
 
-class AlreadyClockedOutError(RuntimeError):
+class NotClockedInError(RuntimeError):
     pass

@@ -22,10 +22,9 @@ def test_clocking_in_records_start_time():
 
 
 def test_clocking_in_raises_an_exception_if_already_clocked_in():
-    repository = FakeEventRepository()
+    last_event = Event(datetime(2022, 5, 22, 19, 50), EventType.IN)
+    repository = FakeEventRepository(last_event)
     use_case = ClockInUseCase(repository)
-
-    use_case.clock_in(datetime(2022, 5, 22, 19, 50))
 
     with raises(AlreadyClockedInError):
         use_case.clock_in(datetime(2022, 5, 22, 19, 51))

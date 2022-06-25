@@ -5,8 +5,8 @@ from clocker.event_repository import EventRepository
 
 
 class FakeEventRepository(EventRepository):
-    def __init__(self):
-        self.inserted_event = None
+    def __init__(self, inserted_event: Optional[Event] = None):
+        self.inserted_event = inserted_event
 
     def insert_event(self, event: Event):
         self.inserted_event = event

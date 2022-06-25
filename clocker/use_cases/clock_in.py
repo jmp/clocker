@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from clocker.event import Event, EventType
-from clocker.event_repository import EventRepository
+from ..errors import AlreadyClockedInError
+from ..event import Event, EventType
+from ..event_repository import EventRepository
 
 
 class ClockInUseCase:
@@ -9,5 +10,8 @@ class ClockInUseCase:
         self._repository = repository
 
     def clock_in(self, timestamp: datetime):
+        last_event = self._repository.get_last_event()
+        if last_event is not None and last_event.type == EventType.IN:
+            raise AlreadyClockedInError()
         event = Event(timestamp, EventType.IN)
         self._repository.insert_event(event)

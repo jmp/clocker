@@ -1,0 +1,2 @@
+class AlreadyClockedInError(RuntimeError):
+    pass

@@ -9,7 +9,7 @@ from clocker.use_cases import ClockInUseCase
 from .fake_event_repository import FakeEventRepository
 
 
-def test_clocking_in_records_start_time():
+def test_clocking_in_records_an_in_event():
     repository = FakeEventRepository()
     use_case = ClockInUseCase(repository)
 

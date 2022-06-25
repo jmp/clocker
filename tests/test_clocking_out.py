@@ -9,7 +9,7 @@ from clocker.use_cases import ClockOutUseCase
 from .fake_event_repository import FakeEventRepository
 
 
-def test_clocking_out_records_end_time():
+def test_clocking_out_records_an_out_event():
     last_event = Event(datetime(2022, 5, 22, 8, 15), EventType.IN)
     repository = FakeEventRepository(last_event)
     use_case = ClockOutUseCase(repository)

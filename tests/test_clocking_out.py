@@ -22,8 +22,17 @@ def test_clocking_out_records_end_time():
     )
 
 
-def test_clocking_out_raises_an_exception_if_not_clocked_in():
+def test_clocking_out_raises_an_exception_if_there_are_no_events():
     repository = FakeEventRepository()
+    use_case = ClockOutUseCase(repository)
+
+    with raises(NotClockedInError):
+        use_case.clock_out(datetime(2022, 5, 22, 19, 51))
+
+
+def test_clocking_out_raises_an_exception_if_not_clocked_in():
+    last_event = Event(datetime(2022, 5, 22, 8, 15), EventType.OUT)
+    repository = FakeEventRepository(last_event)
     use_case = ClockOutUseCase(repository)
 
     with raises(NotClockedInError):

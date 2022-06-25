@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from clocker.errors import AlreadyClockedOutError
-from clocker.event import Event, EventType
-from clocker.event_repository import EventRepository
+from ..errors import AlreadyClockedOutError
+from ..event import Event, EventType
+from ..event_repository import EventRepository
 
 
 class ClockOutUseCase:

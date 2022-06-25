@@ -2,7 +2,7 @@ from pytest import raises
 
 from datetime import datetime
 
-from clocker.errors import NotClockedInError
+from clocker.errors import AlreadyClockedOutError
 from clocker.event import EventType, Event
 from clocker.use_cases import ClockOutUseCase
 
@@ -26,14 +26,14 @@ def test_clocking_out_raises_an_exception_if_there_are_no_events():
     repository = FakeEventRepository()
     use_case = ClockOutUseCase(repository)
 
-    with raises(NotClockedInError):
+    with raises(AlreadyClockedOutError):
         use_case.clock_out(datetime(2022, 5, 22, 19, 51))
 
 
-def test_clocking_out_raises_an_exception_if_not_clocked_in():
+def test_clocking_out_raises_an_exception_if_already_clocked_out():
     last_event = Event(datetime(2022, 5, 22, 8, 15), EventType.OUT)
     repository = FakeEventRepository(last_event)
     use_case = ClockOutUseCase(repository)
 
-    with raises(NotClockedInError):
+    with raises(AlreadyClockedOutError):
         use_case.clock_out(datetime(2022, 5, 22, 19, 51))

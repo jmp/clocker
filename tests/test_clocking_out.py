@@ -6,7 +6,7 @@ from clocker.errors import AlreadyClockedOutError
 from clocker.event import EventType, Event
 from clocker.use_cases import ClockOutUseCase
 
-from .mock_event_repository import MockEventRepository
+from .mocks import MockEventRepository
 
 
 def test_clocking_out_records_an_out_event():

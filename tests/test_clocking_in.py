@@ -6,7 +6,7 @@ from clocker.errors import AlreadyClockedInError
 from clocker.event import EventType, Event
 from clocker.use_cases import ClockInUseCase
 
-from .mock_event_repository import MockEventRepository
+from .mocks import MockEventRepository
 
 
 def test_clocking_in_records_an_in_event():

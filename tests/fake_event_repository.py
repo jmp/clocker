@@ -1,7 +1,7 @@
 from typing import Optional
 
 from clocker.event import Event
-from clocker.event_repository import EventRepository
+from clocker.repositories import EventRepository
 
 
 class FakeEventRepository(EventRepository):

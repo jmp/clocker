@@ -2,7 +2,7 @@ from datetime import datetime
 
 from ..errors import AlreadyClockedOutError
 from ..event import Event, EventType
-from ..event_repository import EventRepository
+from clocker.repositories.event_repository import EventRepository
 
 
 class ClockOutUseCase:

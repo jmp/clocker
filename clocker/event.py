@@ -4,8 +4,8 @@ from enum import Enum
 
 
 class EventType(Enum):
-    IN = 0
-    OUT = 1
+    IN = "IN"
+    OUT = "OUT"
 
 
 @dataclass(frozen=True)

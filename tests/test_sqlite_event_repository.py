@@ -13,7 +13,7 @@ def test_inserting_an_event_adds_a_new_row():
 
     with connect(db_file) as connection:
         row = connection.execute("SELECT * FROM events").fetchone()
-        assert row == ("2022-05-22T08:30:00+00:00", 0)
+        assert row == ("2022-05-22T08:30:00+00:00", "IN")
 
 
 def test_getting_last_event_fetches_the_last_row():
@@ -24,8 +24,8 @@ def test_getting_last_event_fetches_the_last_row():
         connection.execute(
             "INSERT INTO events (timestamp, type) VALUES (?, ?), (?, ?)",
             (
-                "2022-05-01T05:59:02+00:00", 0,
-                "2022-05-01T16:30:45+00:00", 1,
+                "2022-05-01T05:59:02+00:00", "IN",
+                "2022-05-01T16:30:45+00:00", "OUT",
             ),
         )
         connection.commit()

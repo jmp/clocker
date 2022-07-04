@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from clocker.event import Event
 from clocker.action import Action
@@ -20,7 +20,7 @@ def test_get_last_event_returns_the_same_value_by_default():
 def test_insert_event_inserts_a_single_in_event():
     mock_repository = MockEventRepository()
     sqlite_repository = SQLiteEventRepository(":memory:")
-    event = Event(datetime(2022, 1, 2, 8, 15), Action.IN)
+    event = Event(datetime(2022, 1, 2, 8, 15, tzinfo=timezone.utc), Action.IN)
 
     mock_repository.insert_event(event)
     sqlite_repository.insert_event(event)
@@ -34,7 +34,7 @@ def test_insert_event_inserts_a_single_in_event():
 def test_insert_event_inserts_a_single_out_event():
     mock_repository = MockEventRepository()
     sqlite_repository = SQLiteEventRepository(":memory:")
-    event = Event(datetime(2022, 1, 2, 15, 30), Action.OUT)
+    event = Event(datetime(2022, 1, 2, 15, 30, tzinfo=timezone.utc), Action.OUT)
 
     mock_repository.insert_event(event)
     sqlite_repository.insert_event(event)
@@ -48,8 +48,8 @@ def test_insert_event_inserts_a_single_out_event():
 def test_insert_multiple_events():
     mock_repository = MockEventRepository()
     sqlite_repository = SQLiteEventRepository(":memory:")
-    in_event = Event(datetime(2022, 1, 2, 8, 15), Action.IN)
-    out_event = Event(datetime(2022, 1, 2, 16, 30), Action.OUT)
+    in_event = Event(datetime(2022, 1, 2, 8, 15, tzinfo=timezone.utc), Action.IN)
+    out_event = Event(datetime(2022, 1, 2, 16, 30, tzinfo=timezone.utc), Action.OUT)
 
     mock_repository.insert_event(in_event)
     mock_repository.insert_event(out_event)

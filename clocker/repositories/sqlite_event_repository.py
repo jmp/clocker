@@ -23,7 +23,7 @@ class SQLiteEventRepository(EventRepository):
         self._connection.execute(CREATE_SQL)
 
     def insert_event(self, event: Event):
-        row = (event.timestamp.strftime('%Y-%m-%d %H:%M:%S'), event.action.value)
+        row = (event.timestamp.strftime("%Y-%m-%d %H:%M:%S"), event.action.value)
         self._connection.execute(INSERT_SQL, row)
         self._connection.commit()
 

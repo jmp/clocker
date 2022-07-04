@@ -10,7 +10,7 @@ from clocker.use_cases import ClockOutUseCase
 from .mocks import MockEventRepository
 
 
-def test_clocking_out_records_an_out_event():
+def test_clocking_out_records_an_out_event_if_clocked_in():
     last_event = Event(datetime(2022, 5, 22, 8, 15), Action.IN)
     repository = MockEventRepository(last_event)
     use_case = ClockOutUseCase(repository)

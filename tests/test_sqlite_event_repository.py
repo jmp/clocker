@@ -12,7 +12,7 @@ def test_inserting_an_event_adds_a_new_row():
     repository = SQLiteEventRepository(db_file)
     repository.insert_event(event)
 
-    with connect(db_file) as connection:
+    with connect(db_file, uri=True) as connection:
         row = connection.execute("SELECT * FROM events").fetchone()
         assert row == ("2022-05-22 08:30:00", "IN")
 
@@ -21,7 +21,7 @@ def test_getting_last_event_fetches_the_last_row():
     db_file = "file:getlast?cache=shared&mode=memory"
     repository = SQLiteEventRepository(db_file)
 
-    with connect(db_file) as connection:
+    with connect(db_file, uri=True) as connection:
         connection.execute(
             "INSERT INTO events (timestamp, action) VALUES (?, ?), (?, ?)",
             (

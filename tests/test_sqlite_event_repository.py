@@ -1,13 +1,14 @@
 from datetime import datetime, timezone
 from sqlite3 import connect
 
-from clocker.event import Event, EventType
+from clocker.event import Event
+from clocker.action import Action
 from clocker.repositories.sqlite_event_repository import SQLiteEventRepository
 
 
 def test_inserting_an_event_adds_a_new_row():
     db_file = "file:insert?cache=shared&mode=memory"
-    event = Event(datetime(2022, 5, 22, 8, 30, tzinfo=timezone.utc), EventType.IN)
+    event = Event(datetime(2022, 5, 22, 8, 30, tzinfo=timezone.utc), Action.IN)
     repository = SQLiteEventRepository(db_file)
     repository.insert_event(event)
 
@@ -22,7 +23,7 @@ def test_getting_last_event_fetches_the_last_row():
 
     with connect(db_file) as connection:
         connection.execute(
-            "INSERT INTO events (timestamp, type) VALUES (?, ?), (?, ?)",
+            "INSERT INTO events (timestamp, action) VALUES (?, ?), (?, ?)",
             (
                 "2022-05-01T05:59:02+00:00", "IN",
                 "2022-05-01T16:30:45+00:00", "OUT",
@@ -31,7 +32,7 @@ def test_getting_last_event_fetches_the_last_row():
         connection.commit()
 
     last_event = repository.get_last_event()
-    expected_event = Event(datetime(2022, 5, 1, 16, 30, 45, tzinfo=timezone.utc), EventType.OUT)
+    expected_event = Event(datetime(2022, 5, 1, 16, 30, 45, tzinfo=timezone.utc), Action.OUT)
 
     assert last_event == expected_event
 

@@ -2,18 +2,19 @@ from datetime import datetime
 from sqlite3 import connect
 from typing import Optional
 
-from ..event import Event, EventType
+from ..event import Event
+from ..action import Action
 from ..repositories import EventRepository
 
 
 CREATE_SQL = """
     CREATE TABLE IF NOT EXISTS events (
         timestamp PRIMARY KEY NOT NULL,
-        type NOT NULL
+        action NOT NULL
     )
 """
-INSERT_SQL = "INSERT INTO events (timestamp, type) VALUES (?, ?)"
-SELECT_SQL = "SELECT timestamp, type FROM events ORDER BY timestamp DESC LIMIT 1"
+INSERT_SQL = "INSERT INTO events (timestamp, action) VALUES (?, ?)"
+SELECT_SQL = "SELECT timestamp, action FROM events ORDER BY timestamp DESC LIMIT 1"
 
 
 class SQLiteEventRepository(EventRepository):
@@ -22,7 +23,7 @@ class SQLiteEventRepository(EventRepository):
         self._connection.execute(CREATE_SQL)
 
     def insert_event(self, event: Event):
-        row = (event.timestamp.isoformat(), event.type.value)
+        row = (event.timestamp.isoformat(), event.action.value)
         self._connection.execute(INSERT_SQL, row)
         self._connection.commit()
 
@@ -31,5 +32,5 @@ class SQLiteEventRepository(EventRepository):
         if row is None:
             return None
         timestamp = datetime.fromisoformat(row[0])
-        event_type = EventType(row[1])
-        return Event(timestamp, event_type)
+        action = Action(row[1])
+        return Event(timestamp, action)

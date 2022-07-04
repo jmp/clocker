@@ -25,13 +25,13 @@ def test_clocking_out_raises_an_exception_if_there_are_no_events():
     use_case = ClockOutUseCase(repository)
 
     with raises(NotClockedInError):
-        use_case.clock_out(datetime(2022, 5, 22, 19, 51))
+        use_case.clock_out(datetime.now())
 
 
 def test_clocking_out_raises_an_exception_if_already_clocked_out():
-    last_event = Event(datetime(2022, 5, 22, 8, 15), Action.OUT)
+    last_event = Event(datetime.now(), Action.OUT)
     repository = MockEventRepository(last_event)
     use_case = ClockOutUseCase(repository)
 
     with raises(NotClockedInError):
-        use_case.clock_out(datetime(2022, 5, 22, 19, 51))
+        use_case.clock_out(datetime.now())

@@ -20,9 +20,9 @@ def test_clocking_in_records_an_in_event():
 
 
 def test_clocking_in_raises_an_exception_if_already_clocked_in():
-    last_event = Event(datetime(2022, 5, 22, 8, 30), Action.IN)
+    last_event = Event(datetime.now(), Action.IN)
     repository = MockEventRepository(last_event)
     use_case = ClockInUseCase(repository)
 
     with raises(NotClockedOutError):
-        use_case.clock_in(datetime(2022, 5, 22, 8, 31))
+        use_case.clock_in(datetime.now())

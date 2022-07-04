@@ -27,8 +27,9 @@ def test_insert_event_inserts_a_single_in_event():
 
     mock_result = mock_repository.get_last_event()
     sqlite_result = sqlite_repository.get_last_event()
+    expected_result = Event(datetime(2022, 1, 2, 8, 15, tzinfo=timezone.utc), Action.IN)
 
-    assert mock_result == sqlite_result == event
+    assert mock_result == sqlite_result == expected_result
 
 
 def test_insert_event_inserts_a_single_out_event():
@@ -41,8 +42,9 @@ def test_insert_event_inserts_a_single_out_event():
 
     mock_result = mock_repository.get_last_event()
     sqlite_result = sqlite_repository.get_last_event()
+    expected_result = Event(datetime(2022, 1, 2, 15, 30, tzinfo=timezone.utc), Action.OUT)
 
-    assert mock_result == sqlite_result == event
+    assert mock_result == sqlite_result == expected_result
 
 
 def test_insert_multiple_events():
@@ -58,5 +60,6 @@ def test_insert_multiple_events():
 
     mock_result = mock_repository.get_last_event()
     sqlite_result = sqlite_repository.get_last_event()
+    expected_result = Event(datetime(2022, 1, 2, 16, 30, tzinfo=timezone.utc), Action.OUT)
 
-    assert mock_result == sqlite_result == out_event
+    assert mock_result == sqlite_result == expected_result

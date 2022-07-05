@@ -37,7 +37,7 @@ def test_getting_last_event_fetches_the_last_row():
     assert last_event == expected_event
 
 
-def test_getting_last_event_returns_none_there_are_no_rows():
+def test_getting_last_event_returns_none_if_there_are_no_rows():
     repository = SQLiteEventRepository(":memory:")
 
     last_event = repository.get_last_event()

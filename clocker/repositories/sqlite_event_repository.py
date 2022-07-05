@@ -1,11 +1,10 @@
-from datetime import datetime, timezone
 from sqlite3 import connect
 from typing import Optional
 
 from ..event import Event
 from ..action import Action
 from ..repositories import EventRepository
-
+from ..timestamp import Timestamp
 
 CREATE_SQL = """
     CREATE TABLE IF NOT EXISTS events (
@@ -23,8 +22,7 @@ class SQLiteEventRepository(EventRepository):
         self._connection.execute(CREATE_SQL)
 
     def insert_event(self, event: Event):
-        timestamp = event.timestamp.astimezone(timezone.utc)
-        row = (timestamp.strftime("%Y-%m-%d %H:%M:%S"), event.action.value)
+        row = (str(event.timestamp), event.action.value)
         self._connection.execute(INSERT_SQL, row)
         self._connection.commit()
 
@@ -32,6 +30,4 @@ class SQLiteEventRepository(EventRepository):
         row = self._connection.execute(SELECT_SQL).fetchone()
         if row is None:
             return None
-        timestamp = datetime.fromisoformat(row[0]).replace(tzinfo=timezone.utc)
-        action = Action(row[1])
-        return Event(timestamp, action)
+        return Event(Timestamp(row[0]), Action(row[1]))

@@ -1,10 +1,10 @@
 from dataclasses import dataclass
-from datetime import datetime
 
 from .action import Action
+from .timestamp import Timestamp
 
 
 @dataclass(frozen=True)
 class Event:
-    timestamp: datetime
+    timestamp: Timestamp
     action: Action

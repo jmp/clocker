@@ -7,12 +7,12 @@ from clocker.event import Event
 from clocker.action import Action
 from clocker.use_cases import ClockOutUseCase
 
-from .mocks import MockEventRepository
+from .mocks import InMemoryEventRepository
 
 
 def test_clocking_out_records_an_out_event_if_clocked_in():
     last_event = Event(datetime(2022, 5, 22, 8, 15), Action.IN)
-    repository = MockEventRepository(last_event)
+    repository = InMemoryEventRepository(last_event)
     use_case = ClockOutUseCase(repository)
 
     use_case.clock_out(datetime(2022, 5, 22, 19, 50))
@@ -21,7 +21,7 @@ def test_clocking_out_records_an_out_event_if_clocked_in():
 
 
 def test_clocking_out_raises_an_exception_if_there_are_no_events():
-    repository = MockEventRepository()
+    repository = InMemoryEventRepository()
     use_case = ClockOutUseCase(repository)
 
     with raises(NotClockedInError):
@@ -30,7 +30,7 @@ def test_clocking_out_raises_an_exception_if_there_are_no_events():
 
 def test_clocking_out_raises_an_exception_if_already_clocked_out():
     last_event = Event(datetime.now(), Action.OUT)
-    repository = MockEventRepository(last_event)
+    repository = InMemoryEventRepository(last_event)
     use_case = ClockOutUseCase(repository)
 
     with raises(NotClockedInError):

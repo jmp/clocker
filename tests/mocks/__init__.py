@@ -1,1 +1,1 @@
-from .mock_event_repository import MockEventRepository
+from .in_memory_event_repository import InMemoryEventRepository

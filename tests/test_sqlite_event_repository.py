@@ -8,7 +8,7 @@ from clocker.repositories.sqlite_event_repository import SQLiteEventRepository
 
 def test_inserting_an_event_adds_a_new_row():
     db_file = "file:insert?cache=shared&mode=memory"
-    event = Event(datetime(2022, 5, 22, 8, 30, tzinfo=timezone.utc), Action.IN)
+    event = Event(datetime.fromisoformat("2022-05-22 11:30:00+03:00"), Action.IN)
     repository = SQLiteEventRepository(db_file)
     repository.insert_event(event)
 

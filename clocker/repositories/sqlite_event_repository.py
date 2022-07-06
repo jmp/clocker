@@ -13,7 +13,7 @@ CREATE_SQL = """
     )
 """
 INSERT_SQL = "INSERT INTO events (timestamp, action) VALUES (?, ?)"
-SELECT_SQL = "SELECT timestamp, action FROM events ORDER BY timestamp DESC LIMIT 1"
+SELECT_SQL = "SELECT timestamp, action FROM events ORDER BY timestamp DESC, rowid LIMIT 1"
 
 
 class SQLiteEventRepository(EventRepository):

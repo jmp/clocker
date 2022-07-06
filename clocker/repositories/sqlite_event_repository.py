@@ -1,5 +1,5 @@
 from sqlite3 import connect
-from typing import Optional
+from typing import Optional, Type, Dict
 
 from ..event import Event, InEvent, OutEvent
 from ..action import Action
@@ -17,6 +17,11 @@ SELECT_SQL = "SELECT timestamp, action FROM events ORDER BY timestamp DESC, rowi
 
 
 class SQLiteEventRepository(EventRepository):
+    event_types: Dict[str, Type] = {
+        Action.IN.value: InEvent,
+        Action.OUT.value: OutEvent,
+    }
+
     def __init__(self, path: str):
         self._connection = connect(path)
         self._connection.execute(CREATE_SQL)
@@ -30,10 +35,5 @@ class SQLiteEventRepository(EventRepository):
         row = self._connection.execute(SELECT_SQL).fetchone()
         if row is None:
             return None
-        timestamp = Timestamp(row[0])
-        action = row[1]
-        if action == Action.IN.value:
-            return InEvent(timestamp)
-        elif action == Action.OUT.value:
-            return OutEvent(timestamp)
-        raise ValueError(f"invalid action '{action}'")
+        event_type = self.event_types[row[1]]
+        return event_type(Timestamp(row[0]))

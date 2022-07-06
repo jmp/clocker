@@ -7,8 +7,9 @@ class Timestamp:
 
     def __init__(self, date_string: Optional[str] = None):
         if date_string is None:
-            date_string = datetime.now().isoformat()
-        timestamp = datetime.fromisoformat(date_string)
+            timestamp = datetime.now()
+        else:
+            timestamp = datetime.fromisoformat(date_string)
         if timestamp.tzinfo is None:
             timestamp = timestamp.combine(timestamp.date(), timestamp.time(), timezone.utc)
         self._value = timestamp.astimezone(timezone.utc)

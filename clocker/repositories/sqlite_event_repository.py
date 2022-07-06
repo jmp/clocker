@@ -1,7 +1,7 @@
 from sqlite3 import connect
 from typing import Optional
 
-from ..event import Event
+from ..event import Event, InEvent, OutEvent
 from ..action import Action
 from ..repositories import EventRepository
 from ..timestamp import Timestamp
@@ -30,4 +30,10 @@ class SQLiteEventRepository(EventRepository):
         row = self._connection.execute(SELECT_SQL).fetchone()
         if row is None:
             return None
-        return Event(Timestamp(row[0]), Action(row[1]))
+        timestamp = Timestamp(row[0])
+        action = row[1]
+        if action == Action.IN.value:
+            return InEvent(timestamp)
+        elif action == Action.OUT.value:
+            return OutEvent(timestamp)
+        raise ValueError(f"invalid action '{action}'")

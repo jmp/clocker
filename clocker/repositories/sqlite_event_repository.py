@@ -35,5 +35,6 @@ class SQLiteEventRepository(EventRepository):
         row = self._connection.execute(SELECT_SQL).fetchone()
         if row is None:
             return None
+        timestamp = Timestamp(row[0])
         event_type = self.event_types[row[1]]
-        return event_type(Timestamp(row[0]))
+        return event_type(timestamp)

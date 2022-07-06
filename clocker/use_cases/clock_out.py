@@ -1,6 +1,7 @@
+from types import NoneType
+
 from ..errors import NotClockedInError
 from ..event import OutEvent
-from ..action import Action
 from ..repositories.event_repository import EventRepository
 from ..timestamp import Timestamp
 
@@ -11,7 +12,7 @@ class ClockOutUseCase:
 
     def clock_out(self, timestamp: Timestamp):
         last_event = self._repository.get_last_event()
-        if last_event is None or last_event.action == Action.OUT:
+        if isinstance(last_event, (NoneType, OutEvent)):
             raise NotClockedInError()
 
         self._repository.insert_event(OutEvent(timestamp))

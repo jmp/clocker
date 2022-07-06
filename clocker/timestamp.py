@@ -11,7 +11,7 @@ class Timestamp:
         else:
             timestamp = datetime.fromisoformat(date_string)
         if timestamp.tzinfo is None:
-            timestamp = timestamp.combine(timestamp.date(), timestamp.time(), timezone.utc)
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
         self._value = timestamp.astimezone(timezone.utc)
 
     def __eq__(self, other: "Timestamp") -> bool:

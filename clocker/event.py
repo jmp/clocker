@@ -1,20 +1,20 @@
 from dataclasses import dataclass, field
+from typing import Union
 
 from .action import Action
 from .timestamp import Timestamp
 
 
 @dataclass(frozen=True)
-class Event:
-    action: Action
+class InEvent:
     timestamp: Timestamp = field(default_factory=Timestamp)
+    action = Action.IN
 
 
 @dataclass(frozen=True)
-class InEvent(Event):
-    action: Action = field(init=False, default=Action.IN)
+class OutEvent:
+    timestamp: Timestamp = field(default_factory=Timestamp)
+    action = Action.OUT
 
 
-@dataclass(frozen=True)
-class OutEvent(Event):
-    action: Action = field(init=False, default=Action.OUT)
+Event = Union[InEvent, OutEvent]

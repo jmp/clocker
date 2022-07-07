@@ -1,6 +1,6 @@
 from ..errors import NotClockedInError
 from ..event import OutEvent
-from ..repositories.event_repository import EventRepository
+from ..repositories import EventRepository
 from ..timestamp import Timestamp
 
 

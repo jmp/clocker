@@ -1,14 +1,14 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from clocker.timestamp import Timestamp
 
 
 def test_timestamp_without_parameters_uses_current_time_in_utc():
-    before = datetime.now() - timedelta(seconds=1)
+    before = datetime.now(timezone.utc) - timedelta(seconds=1)
     timestamp = Timestamp()
-    after = datetime.now() + timedelta(seconds=1)
+    after = datetime.now(timezone.utc) + timedelta(seconds=1)
 
-    actual = datetime.fromisoformat(str(timestamp))
+    actual = datetime.fromisoformat(str(timestamp)).replace(tzinfo=timezone.utc)
 
     assert before < actual < after
 

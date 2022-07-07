@@ -7,11 +7,11 @@ class Timestamp:
 
     def __init__(self, date_string: Optional[str] = None):
         if date_string is None:
-            timestamp = datetime.now()
+            timestamp = datetime.now(timezone.utc)
         else:
             timestamp = datetime.fromisoformat(date_string)
-        if timestamp.tzinfo is None:
-            timestamp = timestamp.replace(tzinfo=timezone.utc)
+            if timestamp.tzinfo is None:
+                timestamp = timestamp.replace(tzinfo=timezone.utc)
         self._value = timestamp.astimezone(timezone.utc)
 
     def __eq__(self, other: "Timestamp") -> bool:

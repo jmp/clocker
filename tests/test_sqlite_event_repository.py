@@ -1,7 +1,7 @@
 from sqlite3 import connect
 
 from clocker.event import InEvent, OutEvent
-from clocker.repositories.sqlite_event_repository import SQLiteEventRepository
+from clocker.repositories import SQLiteEventRepository
 from clocker.timestamp import Timestamp
 
 

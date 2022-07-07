@@ -17,11 +17,6 @@ SELECT_SQL = "SELECT timestamp, action FROM events ORDER BY timestamp DESC, rowi
 
 
 class SQLiteEventRepository(EventRepository):
-    event_types: Dict[str, Type] = {
-        Action.IN.value: InEvent,
-        Action.OUT.value: OutEvent,
-    }
-
     def __init__(self, path: str):
         self._connection = connect(path)
         self._connection.execute(CREATE_SQL)
@@ -36,5 +31,7 @@ class SQLiteEventRepository(EventRepository):
         if row is None:
             return None
         timestamp = Timestamp(row[0])
-        event_type = self.event_types[row[1]]
-        return event_type(timestamp)
+        action = Action(row[1])
+        if action == Action.IN:
+            return InEvent(timestamp)
+        return OutEvent(timestamp)

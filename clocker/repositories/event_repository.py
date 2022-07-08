@@ -6,9 +6,9 @@ from ..event import Event
 
 class EventRepository(ABC):
     @abstractmethod
-    def insert_event(self, event: Event):
+    def save(self, event: Event):
         ...
 
     @abstractmethod
-    def get_last_event(self) -> Optional[Event]:
+    def find_last(self) -> Optional[Event]:
         ...

@@ -21,11 +21,11 @@ class SQLiteEventRepository(EventRepository):
         self._connection = connect(path)
         self._connection.execute(CREATE_SQL)
 
-    def insert_event(self, event: Event):
+    def save(self, event: Event):
         self._connection.execute(INSERT_SQL, (str(event.timestamp), event.action.value))
         self._connection.commit()
 
-    def get_last_event(self) -> Optional[Event]:
+    def find_last(self) -> Optional[Event]:
         row = self._connection.execute(SELECT_SQL).fetchone()
         if row is None:
             return None

@@ -9,8 +9,8 @@ class ClockOutUseCase:
         self._repository = repository
 
     def clock_out(self, timestamp: Timestamp):
-        last_event = self._repository.get_last_event()
+        last_event = self._repository.find_last()
         if last_event is None or isinstance(last_event, OutEvent):
             raise NotClockedInError()
 
-        self._repository.insert_event(OutEvent(timestamp))
+        self._repository.save(OutEvent(timestamp))

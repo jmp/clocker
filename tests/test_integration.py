@@ -3,12 +3,9 @@ from clocker.repositories import SQLiteEventRepository
 from clocker.timestamp import Timestamp
 from clocker.use_cases import ClockInUseCase, ClockOutUseCase
 
-from .helpers import InMemorySQLiteDatabase
-
 
 def test_clocking_in_with_real_database():
-    database = InMemorySQLiteDatabase()
-    repository = SQLiteEventRepository(database.uri)
+    repository = SQLiteEventRepository(":memory:")
     use_case = ClockInUseCase(repository)
 
     use_case.clock_in(Timestamp("2022-06-08 22:48:33+03:00"))
@@ -19,8 +16,7 @@ def test_clocking_in_with_real_database():
 
 
 def test_clocking_out_with_real_database():
-    database = InMemorySQLiteDatabase()
-    repository = SQLiteEventRepository(database.uri)
+    repository = SQLiteEventRepository(":memory:")
     repository.save(InEvent(Timestamp("2022-06-08 06:30:24")))
     use_case = ClockOutUseCase(repository)
 

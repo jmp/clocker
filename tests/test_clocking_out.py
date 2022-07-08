@@ -5,7 +5,7 @@ from clocker.event import InEvent, OutEvent
 from clocker.timestamp import Timestamp
 from clocker.use_cases import ClockOutUseCase
 
-from .mocks import InMemoryEventRepository
+from .helpers import InMemoryEventRepository
 
 
 def test_clocking_out_records_an_out_event_if_clocked_in():

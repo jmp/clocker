@@ -2,7 +2,7 @@ from clocker.event import InEvent, OutEvent
 from clocker.repositories import SQLiteEventRepository
 from clocker.timestamp import Timestamp
 
-from .mocks import InMemoryEventRepository
+from .helpers import InMemoryEventRepository
 
 
 def test_get_last_event_returns_the_same_value_by_default():

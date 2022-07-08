@@ -1,1 +1,2 @@
 from .in_memory_event_repository import InMemoryEventRepository
+from .in_memory_sqlite_database import InMemorySQLiteDatabase

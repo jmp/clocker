@@ -5,7 +5,7 @@ from clocker.event import InEvent, OutEvent
 from clocker.timestamp import Timestamp
 from clocker.use_cases import ClockInUseCase
 
-from .mocks import InMemoryEventRepository
+from .helpers import InMemoryEventRepository
 
 
 def test_clocking_in_records_an_in_event_if_there_are_no_events():

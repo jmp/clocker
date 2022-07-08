@@ -22,8 +22,7 @@ class SQLiteEventRepository(EventRepository):
         self._connection.execute(CREATE_SQL)
 
     def insert_event(self, event: Event):
-        row = (str(event.timestamp), event.action.value)
-        self._connection.execute(INSERT_SQL, row)
+        self._connection.execute(INSERT_SQL, (str(event.timestamp), event.action.value))
         self._connection.commit()
 
     def get_last_event(self) -> Optional[Event]:

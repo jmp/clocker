@@ -27,7 +27,7 @@ def test_finding_last_event_sorts_by_timestamp():
     assert last_event == OutEvent(Timestamp("2022-05-01 16:30:45"))
 
 
-def test_getting_last_event_returns_none_if_there_are_no_rows():
+def test_finding_last_event_returns_none_if_there_are_no_rows():
     database = InMemorySQLiteDatabase()
     repository = SQLiteEventRepository(database.uri)
 

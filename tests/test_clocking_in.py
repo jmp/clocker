@@ -14,7 +14,7 @@ def test_clocking_in_records_an_in_event_if_there_are_no_events():
 
     use_case.clock_in(Timestamp("2022-05-22 08:30"))
 
-    assert repository.inserted_event == InEvent(Timestamp("2022-05-22 08:30"))
+    assert repository.find_last() == InEvent(Timestamp("2022-05-22 08:30"))
 
 
 def test_clocking_in_records_an_in_event_if_clocked_out():
@@ -24,7 +24,7 @@ def test_clocking_in_records_an_in_event_if_clocked_out():
 
     use_case.clock_in(Timestamp("2022-05-23 06:15"))
 
-    assert repository.inserted_event == InEvent(Timestamp("2022-05-23 06:15"))
+    assert repository.find_last() == InEvent(Timestamp("2022-05-23 06:15"))
 
 
 def test_clocking_in_raises_an_exception_if_already_clocked_in():

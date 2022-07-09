@@ -16,11 +16,11 @@ def test_inserting_an_event_adds_a_new_row():
     assert all_events == [("2022-05-22 08:30:00", "IN")]
 
 
-def test_getting_last_event_fetches_the_last_row():
+def test_finding_last_event_sorts_by_timestamp():
     database = InMemorySQLiteDatabase()
     repository = SQLiteEventRepository(database.uri)
-    database.insert_event("2022-05-01 05:59:02", "IN")
     database.insert_event("2022-05-01 16:30:45", "OUT")
+    database.insert_event("2022-05-01 05:59:02", "IN")
 
     last_event = repository.find_last()
 

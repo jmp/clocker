@@ -1,5 +1,5 @@
 from sqlite3 import connect
-from typing import Optional, Type, Dict
+from typing import Optional
 
 from ..event import Event, InEvent, OutEvent
 from ..action import Action

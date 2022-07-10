@@ -25,7 +25,7 @@ def test_timestamp_with_timezone_is_converted_to_utc():
     assert str(timestamp) == "2022-07-05 17:38:50"
 
 
-def test_two_timestamps_with_the_same_time_are_the_same():
+def test_same_timestamps_with_different_timezones_are_equal():
     timestamp1 = Timestamp("2022-07-06 01:00:00+00:00")
     timestamp2 = Timestamp("2022-07-06 03:00:00+02:00")
 

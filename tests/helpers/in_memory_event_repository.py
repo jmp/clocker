@@ -5,8 +5,7 @@ from clocker.repositories import EventRepository
 
 
 class InMemoryEventRepository(EventRepository):
-    def __init__(self, inserted_event: Optional[Event] = None):
-        self._inserted_event = inserted_event
+    _inserted_event: Event = None
 
     def save(self, event: Event):
         self._inserted_event = event

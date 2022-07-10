@@ -1,2 +1,2 @@
-from .clock_in import ClockInUseCase
-from .clock_out import ClockOutUseCase
+from .clock_in import ClockInUseCase, NotClockedOutError
+from .clock_out import ClockOutUseCase, NotClockedInError

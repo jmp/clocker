@@ -1,9 +1,8 @@
 from pytest import raises
 
-from clocker.errors import NotClockedInError
 from clocker.event import InEvent, OutEvent
 from clocker.timestamp import Timestamp
-from clocker.use_cases import ClockOutUseCase
+from clocker.use_cases import ClockOutUseCase, NotClockedInError
 
 from .helpers import InMemoryEventRepository
 

@@ -1,4 +1,3 @@
-from ..errors import NotClockedInError
 from ..event import OutEvent
 from ..repositories import EventRepository
 from ..timestamp import Timestamp
@@ -14,3 +13,7 @@ class ClockOutUseCase:
             raise NotClockedInError()
 
         self._repository.save(OutEvent(timestamp))
+
+
+class NotClockedInError(RuntimeError):
+    pass

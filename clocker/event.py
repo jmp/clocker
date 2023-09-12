@@ -5,15 +5,15 @@ from .timestamp import Timestamp
 
 
 @dataclass(frozen=True)
-class InEvent:
+class ClockedIn:
     timestamp: Timestamp = field(default_factory=Timestamp)
     action = Action.IN
 
 
 @dataclass(frozen=True)
-class OutEvent:
+class ClockedOut:
     timestamp: Timestamp = field(default_factory=Timestamp)
     action = Action.OUT
 
 
-Event = InEvent | OutEvent
+Event = ClockedIn | ClockedOut

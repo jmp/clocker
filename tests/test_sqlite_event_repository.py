@@ -1,4 +1,4 @@
-from clocker.event import InEvent, OutEvent
+from clocker.event import ClockedIn, ClockedOut
 from clocker.repositories import SQLiteEventRepository
 from clocker.timestamp import Timestamp
 
@@ -7,7 +7,7 @@ from .helpers import InMemorySQLiteDatabase
 
 def test_inserting_an_event_adds_a_new_row():
     database = InMemorySQLiteDatabase()
-    event = InEvent(Timestamp("2022-05-22 11:30:00+03:00"))
+    event = ClockedIn(Timestamp("2022-05-22 11:30:00+03:00"))
     repository = SQLiteEventRepository(database.uri)
 
     repository.save(event)
@@ -24,7 +24,7 @@ def test_finding_last_event_sorts_by_timestamp():
 
     last_event = repository.find_last()
 
-    assert last_event == OutEvent(Timestamp("2022-05-01 16:30:45"))
+    assert last_event == ClockedOut(Timestamp("2022-05-01 16:30:45"))
 
 
 def test_finding_last_event_returns_none_if_there_are_no_rows():

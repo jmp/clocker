@@ -1,4 +1,4 @@
-from clocker.event import InEvent, OutEvent
+from clocker.event import ClockedIn, ClockedOut
 from clocker.repositories import SQLiteEventRepository
 from clocker.timestamp import Timestamp
 from clocker.use_cases import ClockInUseCase, ClockOutUseCase
@@ -12,16 +12,16 @@ def test_clocking_in_with_real_database():
 
     last_event = repository.find_last()
 
-    assert last_event == InEvent(Timestamp("2022-06-08 19:48:33"))
+    assert last_event == ClockedIn(Timestamp("2022-06-08 19:48:33"))
 
 
 def test_clocking_out_with_real_database():
     repository = SQLiteEventRepository(":memory:")
-    repository.save(InEvent(Timestamp("2022-06-08 06:30:24")))
+    repository.save(ClockedIn(Timestamp("2022-06-08 06:30:24")))
     use_case = ClockOutUseCase(repository)
 
     use_case.clock_out(Timestamp("2022-06-08 16:02:18+03:00"))
 
     last_event = repository.find_last()
 
-    assert last_event == OutEvent(Timestamp("2022-06-08 13:02:18"))
+    assert last_event == ClockedOut(Timestamp("2022-06-08 13:02:18"))

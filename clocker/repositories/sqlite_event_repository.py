@@ -1,6 +1,6 @@
 from sqlite3 import connect
 
-from ..event import Event, InEvent, OutEvent
+from ..event import Event, ClockedIn, ClockedOut
 from ..action import Action
 from ..repositories import EventRepository
 from ..timestamp import Timestamp
@@ -31,5 +31,5 @@ class SQLiteEventRepository(EventRepository):
         timestamp = Timestamp(row[0])
         action = Action(row[1])
         if action == Action.IN:
-            return InEvent(timestamp)
-        return OutEvent(timestamp)
+            return ClockedIn(timestamp)
+        return ClockedOut(timestamp)

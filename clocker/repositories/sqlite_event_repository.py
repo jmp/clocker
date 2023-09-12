@@ -1,7 +1,6 @@
 from sqlite3 import connect
 
 from ..event import Event, ClockedIn, ClockedOut
-from ..action import Action
 from ..repositories import EventRepository
 from ..timestamp import Timestamp
 
@@ -21,7 +20,8 @@ class SQLiteEventRepository(EventRepository):
         self._connection.execute(CREATE_SQL)
 
     def save(self, event: Event):
-        self._connection.execute(INSERT_SQL, (str(event.timestamp), event.action.value))
+        action = "IN" if isinstance(event, ClockedIn) else "OUT"
+        self._connection.execute(INSERT_SQL, (str(event.timestamp), action))
         self._connection.commit()
 
     def find_last(self) -> Event | None:
@@ -29,7 +29,7 @@ class SQLiteEventRepository(EventRepository):
         if row is None:
             return None
         timestamp = Timestamp(row[0])
-        action = Action(row[1])
-        if action == Action.IN:
+        action = row[1]
+        if action == "IN":
             return ClockedIn(timestamp)
         return ClockedOut(timestamp)

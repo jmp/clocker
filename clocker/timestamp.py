@@ -1,11 +1,11 @@
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Self
 
 
 class Timestamp:
     _value: datetime
 
-    def __init__(self, date_string: Optional[str] = None):
+    def __init__(self, date_string: str | None = None):
         if date_string is None:
             timestamp = datetime.now(timezone.utc)
         else:
@@ -14,7 +14,7 @@ class Timestamp:
                 timestamp = timestamp.replace(tzinfo=timezone.utc)
         self._value = timestamp.astimezone(timezone.utc)
 
-    def __eq__(self, other: "Timestamp") -> bool:
+    def __eq__(self, other: Self) -> bool:
         return self._value == other._value
 
     def __str__(self) -> str:

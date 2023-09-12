@@ -1,5 +1,4 @@
 from sqlite3 import connect
-from typing import Optional
 
 from ..event import Event, InEvent, OutEvent
 from ..action import Action
@@ -25,7 +24,7 @@ class SQLiteEventRepository(EventRepository):
         self._connection.execute(INSERT_SQL, (str(event.timestamp), event.action.value))
         self._connection.commit()
 
-    def find_last(self) -> Optional[Event]:
+    def find_last(self) -> Event | None:
         row = self._connection.execute(SELECT_SQL).fetchone()
         if row is None:
             return None

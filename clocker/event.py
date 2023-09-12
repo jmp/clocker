@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import Union
 
 from .action import Action
 from .timestamp import Timestamp
@@ -17,4 +16,4 @@ class OutEvent:
     action = Action.OUT
 
 
-Event = Union[InEvent, OutEvent]
+Event = InEvent | OutEvent
